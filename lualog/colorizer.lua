@@ -1,22 +1,19 @@
--- local pkgpath = string.gsub(...,'%.','/')
--- print('init luachalk',...)
--- package.path = package.path .. ';' .. pkgpath ..'/?.lua;'
-local colors = require'luachalk.colors'
-local Chalk = {}
-Chalk.__index = Chalk
-Chalk.__call = function(cls,...)
-    return  cls.new(...)
+local colors = require'lualog.colors'
+local Colorizer = {}
+Colorizer.__index = Colorizer
+Colorizer.__call = function(cls,...)
+    return cls.new(...)
 end
 
 local ustring = function(value)
     return '\u{001b}['..value..'m'
 end
 
-function Chalk.new(options)
-    options = options or {}
+function Colorizer.new(options)
+    -- options = options or {}
     local c = {}
-    c.level = options.level or 1
-    c.enabled = options.enabled or c.level > 0
+    -- c.level = options.level or 1
+    -- c.enabled = options.enabled or c.level > 0
     for color,value in pairs(colors) do
         if(color ~= 'reset') then
             c[color] = function (s)
@@ -33,14 +30,14 @@ function Chalk.new(options)
         end
         local style = ''
         for _, sty in ipairs(styles) do
-            style = ustring(colors[sty])
+            if(colors[sty])then
+                style = style..ustring(colors[sty])
+            end
         end
         return style..str..ustring(colors.reset)
     end
     c.codes = colors
-    setmetatable(c,Chalk)
-    return c
+    return setmetatable(c,Colorizer)
 end
 
-return Chalk.new()
--- return Chalk
+return Colorizer.new()

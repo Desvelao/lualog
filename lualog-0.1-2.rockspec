@@ -1,9 +1,9 @@
 package = "lualog"
-version = "0.1-1"
+version = "0.1-2"
 rockspec_format = "3.0"
 source = {
    url = "git://github.com/Desvelao/lualog",
-   tag = "v0.1.1",
+   tag = "v0.1.2",
    dir = "lualog"
 }
 description = {
@@ -22,9 +22,11 @@ dependencies = {
 build = {
    type = "builtin",
    modules = {
-      ["lualog.init"] = "init.lua",
-      ["lualog.luachalk.init"] = "luachalk/init.lua",
-      ["lualog.luachalk.colors"] = "luachalk/colors.lua"
+      ["lualog.init"] = "lualog/init.lua",
+      ["lualog.colorizer"] = "lualog/colorizer.lua",
+      ["lualog.colors"] = "lualog/colors.lua",
+      ["lualog.inspect"] = "lualog/inspect.lua",
+      ["lualog.util"] = "lualog/util.lua",
    }
 }
 
