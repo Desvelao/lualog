@@ -1,9 +1,9 @@
 package = "lualog"
-version = "0.1-2"
+version = "0.1-3"
 rockspec_format = "3.0"
 source = {
    url = "git://github.com/Desvelao/lualog",
-   tag = "v0.1.2",
+   tag = "v0.1.3",
    dir = "lualog"
 }
 description = {

@@ -119,7 +119,7 @@ local my_table = {
         }
     }
 
-logger:inspect(my_blue_string) -- inspect a table with yor table_inspect config defined or use default values. No plugin is applied.
+logger:inspect(my_table) -- inspect a table with yor table_inspect config defined or use default values. No plugin is applied.
 ```
 Log:
 
@@ -141,6 +141,7 @@ function my_plugin_for_print_tables(element)
         end
         return result -- return a not-nil value to print your element as you defined an this function/plugin
     end
+end
 
 logger:use(my_plugin_for_print_tables)
 
