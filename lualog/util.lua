@@ -19,7 +19,7 @@ end
 function util.table.map(t,fn)
     local new_t = {}
     for k,v in pairs(t) do
-        new_t = fn(v,k,t)
+        new_t[k] = fn(v,k,t)
     end
     return new_t
 end
