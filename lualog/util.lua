@@ -34,9 +34,16 @@ function util.is_instance_of(instance,class)
     return instance.__class_name == class
 end
 
-function util.deco.if_condition(condition)
-    return function(value_true,value_false)
-        return (condition and value_true) or value_false
+do
+    local function return_first(first) return first end
+    local function return_second(first, second) return second end
+    
+    function util.deco.if_condition(condition)
+        if condition then
+            return return_first
+        else
+            return return_second
+        end
     end
 end
 
