@@ -52,7 +52,7 @@ end
 -- @treturn boolean Whether the object is an instance of the class
 function util.is_instance_of(instance,class)
     if not type(instance)=='table' then error("Argument #1 not an object (expected table, got "..type(instance)..")", 2) end
-    return and instance.__class_name == class
+    return instance.__class_name == class
 end
 
 do
