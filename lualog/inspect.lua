@@ -48,8 +48,9 @@ function Inspect:parse(o, options)
     local length = 0
     for k,v in pairs(o) do
         length = length + 1
-        local mt = getmetatable(v) or nil
-        if(config.allow_tostring and mt and mt.__tostring)then return mt.__tostring() end
+        if(config.allow_tostring) then
+            return tostring(v)
+        end
         local val, style_elem, render_elem = v, '', function(value) return value end
         result = result .. if_prettyfy(char_pretiffy:rep(config._level),'') .. k .. ' = '
         if(type(v) == 'table' and (config.level_depth  == 0 or config.level_depth > config._level)) then
