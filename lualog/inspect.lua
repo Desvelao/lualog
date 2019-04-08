@@ -1,12 +1,16 @@
 local Colorizer = require'lualog.colorizer'
 local util = require'lualog.util'
 
+--- An object that inspects a Lua table recursively and generates human-readable output.
+-- @type Inspector
+
 local Inspect = {}
 
+--- Default Options
 Inspect.config = {
-    prettyfy = false,
-    allow_tostring = true,
-    level_depth = 0,
+    prettyfy = false, -- Prettify Output
+    allow_tostring = true, -- Tries calling the __tostring metamethod
+    level_depth = 0, -- Max depth to recurse into tables
     type_values = {
         number = {style = 'green'},
         string = {style = 'yellow', render = function(value) return '"'..value..'"' end},
@@ -17,12 +21,19 @@ Inspect.config = {
     }
 }
 
+--- Creates a new inspector Object.
+-- @tparam table options A table containing options for the new inspector
+-- @treturn Inspector A newly created inspector
 function Inspect.new(options)
     local config = options or {}
     local inspect = {config = setmetatable(options or {}, {__index = Inspect.config})}
     return setmetatable(inspect, {__index = Inspect})
 end
 
+--- Inspects an object recursively
+-- @tparam table o An object to inspect
+-- @tparam table options Additional one-time options for this call
+-- @treturn table parsed results of the inspection
 function Inspect:parse(o, options)
     options = options or {}
     local config = {
@@ -37,8 +48,9 @@ function Inspect:parse(o, options)
     local length = 0
     for k,v in pairs(o) do
         length = length + 1
-        local mt = getmetatable(v) or nil
-        if(config.allow_tostring and mt and mt.__tostring)then return mt.__tostring() end
+        if(config.allow_tostring) then
+            return tostring(v)
+        end
         local val, style_elem, render_elem = v, '', function(value) return value end
         result = result .. if_prettyfy(char_pretiffy:rep(config._level),'') .. k .. ' = '
         if(type(v) == 'table' and (config.level_depth  == 0 or config.level_depth > config._level)) then
