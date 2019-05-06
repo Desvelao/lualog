@@ -4,7 +4,7 @@ local Lualog = require'lualog'
 -- Create a instance
 local logger = Lualog.new{ -- you can use Lualog() instead Lualog.lew
     tag = 'My Logger', -- a logger tag. default: ''
-    styles = {dev = 'yellow', crash = 'bgred'}, -- define custom methods and their style. default: {}
+    styles = {dev = 'yellow', crash = 'bgred', data= 'red'}, -- define custom methods and their style. default: {}
     ignore_levels = {'dev'}, -- ignore levels (array). default: {}
     datestring = '%H:%M:%S', -- date string for os.date(). default: false => Not show
      table_inspect = {

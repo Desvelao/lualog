@@ -1,0 +1,288 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>Lualog - Simple logger for Lua</title>
+    <link rel="stylesheet" href="../ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>Lualog</h1>
+
+<ul>
+  <li><a href="../index.html">Index</a></li>
+</ul>
+
+<h2>Contents</h2>
+<ul>
+<li><a href="#Functions">Functions</a></li>
+</ul>
+
+
+<h2>Modules</h2>
+<ul class="nowrap">
+  <li><a href="../modules/init.html">init</a></li>
+  <li><strong>util</strong></li>
+</ul>
+<h2>Classes</h2>
+<ul class="nowrap">
+  <li><a href="../classes/Colorizer.html">Colorizer</a></li>
+  <li><a href="../classes/Inspect.html">Inspect</a></li>
+</ul>
+<h2>Topics</h2>
+<ul class="">
+  <li><a href="../topics/readme.md.html">readme</a></li>
+</ul>
+<h2>Examples</h2>
+<ul class="nowrap">
+  <li><a href="../examples/example.lua.html">example.lua</a></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+<h1>Module <code>util</code></h1>
+<p>Returns whether a table includes a certain element.</p>
+<p>
+
+</p>
+
+
+<h2><a href="#Functions">Functions</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#util.table.is">util.table.is (t)</a></td>
+	<td class="summary">Returns whether or not its argument is a table</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#util.table.map">util.table.map (t, fn)</a></td>
+	<td class="summary">Applies a function to every element of a table and collects the results in a new table.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#util.table.for_each">util.table.for_each (t, fn)</a></td>
+	<td class="summary">Applies a function to each element of a tabla and throws away the results.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#is_instance_of">is_instance_of (instance, class)</a></td>
+	<td class="summary">Returns whether an object is an instance of a certain class.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#util.deco.if_condition">util.deco.if_condition (condition)</a></td>
+	<td class="summary">Given a condition, returns a function that returns
+ either its first argument (if condition is true)
+ or its second argument (if condition is false)</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#util.value.not_nil">util.value.not_nil (value, default)</a></td>
+	<td class="summary">Checks whether a value is nil and returns a default value if so.</td>
+	</tr>
+</table>
+
+<br/>
+<br/>
+
+
+    <h2 class="section-header "><a name="Functions"></a>Functions</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "util.table.is"></a>
+    <strong>util.table.is (t)</strong>
+    </dt>
+    <dd>
+    Returns whether or not its argument is a table
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">t</span>
+         Any value
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        Whether t is a table
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "util.table.map"></a>
+    <strong>util.table.map (t, fn)</strong>
+    </dt>
+    <dd>
+    Applies a function to every element of a table and collects the results in a new table.
+ Arguments passed to the function are Value, Key and the Table.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">t</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.3/manual.html#6.6">table</a></span>
+         A table of values
+        </li>
+        <li><span class="parameter">fn</span>
+            <span class="types"><span class="type">function</span></span>
+         A function to apply to every value
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.3/manual.html#6.6">table</a></span>
+        The return values of each call to fn
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "util.table.for_each"></a>
+    <strong>util.table.for_each (t, fn)</strong>
+    </dt>
+    <dd>
+    Applies a function to each element of a tabla and throws away the results.
+ Arguments passed to the function are Value, Key and the Table.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">t</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.3/manual.html#6.6">table</a></span>
+         A table of values
+        </li>
+        <li><span class="parameter">fn</span>
+            <span class="types"><span class="type">function</span></span>
+         A function to apply to every value
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "is_instance_of"></a>
+    <strong>is_instance_of (instance, class)</strong>
+    </dt>
+    <dd>
+    Returns whether an object is an instance of a certain class.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">instance</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.3/manual.html#6.6">table</a></span>
+         The object to check
+        </li>
+        <li><span class="parameter">class</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.3/manual.html#6.4">string</a></span>
+         The class name the object might be an instance of
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        Whether the object is an instance of the class
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "util.deco.if_condition"></a>
+    <strong>util.deco.if_condition (condition)</strong>
+    </dt>
+    <dd>
+    Given a condition, returns a function that returns
+ either its first argument (if condition is true)
+ or its second argument (if condition is false)
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">condition</span>
+         Any Lua value
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">function</span></span>
+        One of the two functions described above
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "util.value.not_nil"></a>
+    <strong>util.value.not_nil (value, default)</strong>
+    </dt>
+    <dd>
+    Checks whether a value is nil and returns a default value if so.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">value</span>
+         Value to check if is nil
+        </li>
+        <li><span class="parameter">default</span>
+         Value to return if value param is nil
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        default if value is nil, value otherwise
+    </ol>
+
+
+
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.6</a></i>
+<i style="float:right;">Last updated 2019-05-06 01:56:35 </i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>

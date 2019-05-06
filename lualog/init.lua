@@ -1,5 +1,11 @@
+--[[
+#Lualog class file
+@author Desvelao^^
+]]
+
 -- Module name: lualog
--- Description: This is a simple logger for Lua. Create a simple logger for Lua with some configurations as show date, stylized tags and logger name.
+-- Description: This is a simple logger for Lua. Create a simple logger for Lua with
+--              some configurations as show date, stylized tags and logger name.
 -- Author: Desvelao^^
 -- Repository: https://github.com/Desvelao/lualog
 
@@ -7,6 +13,8 @@ local colorizer = require'lualog.colorizer'
 local Inspect = require'lualog.inspect'
 local util = require'lualog.util'
 
+-- Create a logger instance what you can customize how elements are printed.
+-- @classmod Lualog
 local Lualog = {}
 Lualog.__class_name = 'lualog'
 Lualog.__inspect = Inspect.new()
@@ -16,18 +24,17 @@ local pack2 = function(...) return {n=select('#', ...), ...} end
 local unpack2 = function(t) return unpack(t, 1, t.n) end
 
 --- Create a Lualog instance
--- @param options <table> Options
--- @param options.datestring <string|boolean> - Date string for os.date(). Default: false. if false, date is not logged
--- @param options.tag <string> - Logger tag. Default: ''
--- @param options.ignore_levels <string[]> - Array of levels ignored. Default: {}
--- @param options.styles <{}> - Table that define styles. Default: {}
--- @param options.table_inspect <table> - Table inspector config.
--- @param options.table_inspect.prettyfy <boolean> - Flag to pretty printing tables. Default: false
--- @param options.table_inspect.allow_tostring <boolean> - Flag to allow use table __tostring metamethod. Default: true
--- @param options.table_inspect.level_depth <boolean> depth level to inspect tables. Default: 0. 0 means no level limit.
--- @param options.plugins <boolean> - Flag to pretty printing tables. Default: false
--- @param options.prettyfy <boolean> - Flag to pretty printing tables. Default: false
--- @return Lualog instance
+-- @tparam[opt={}] table options Options
+-- @tparam[opt=false] string|boolean options.datestring Date string for os.date(). If false, date is not logged
+-- @string[opt=""] options.tag Logger tag.
+-- @tparam[opt={}] {string,...} options.ignore_levels Array of levels ignored.
+-- @tparam[opt={}] {} options.styles Table that define styles.
+-- @tparam table options.table_inspect Table inspector config.
+-- @tparam[opt=false] boolean options.table_inspect.prettyfy Flag to pretty printing tables.
+-- @tparam[opt=true] boolean options.table_inspect.allow_tostring Flag to allow use table __tostring metamethod.
+-- @tparam[opt=0] boolean options.table_inspect.level_depth Depth level to inspect tables. 0 means no level limit.
+-- @tparam[opt={}] {function,...} options.plugins Plugins.
+-- @treturn Lualog
 function Lualog.new(options)
     options = options or {}
     options.table_inspect = options.table_inspect or {}
@@ -45,7 +52,7 @@ function Lualog.new(options)
 
     -- Lualog instance initiation
     local log = {
-        __options = {
+        __options = { -- Options
             ignore_levels = {},
             datestring = (type(datestring) == 'boolean' and datestring == true and '%I:%M:%S') or util.value.not_nil(options.datestring, default.datestring),
             tag = util.value.not_nil(options.tag,default.tag),
@@ -55,11 +62,14 @@ function Lualog.new(options)
                 level_depth = util.value.not_nil(options.table_inspect.level_depth,default.table_inspect.level_depth),
             },
         },
-        __class_name = 'lualog-instance',
-        __plugins = {}
+        __class_name = 'lualog-instance', -- Class anme
+        __plugins = {} -- Plugins
     }
     setmetatable(log,{
         __index = Lualog,
+        --- Print elements with plugins applied
+        -- @tparam Lualog t
+        -- @param ... Elements to print 
         __call = function(t,...) t:print(...) end
     })
 
@@ -118,8 +128,23 @@ function Lualog.new(options)
     end
 
     -- Default log methods
+
+    --- Log info
+    -- @param ... Elements to print
+    -- @function info
+    -- @return self
     log.info = log.__log('blue','info') -- Info log
+
+    --- Log warn
+    -- @param ... Elements to print
+    -- @function warn
+    -- @return self
     log.warn = log.__log('yellow','warn')  -- Warn log
+    
+    --- Log error
+    -- @param ... Elements to print
+    -- @function error
+    -- @return self
     log.error = log.__log('red','error') -- Error log
 
     -- Custom log methods
@@ -148,15 +173,14 @@ function Lualog.new(options)
     return log
 end
 
--- Function as `print` global function but apply your plugins for each element
--- @params <any> - Element to print
--- @return self
+--- Function as `print` global function but apply your plugins for each element
+-- @param ... Element to print
 function Lualog:print(...)
     print(self:__apply_plugins(...))
 end
 
--- Add plugin/s to your lualog instance
--- @params <function> - Plugin/s to add to the queue
+--- Add plugin/s to your lualog instance
+-- @tparam function ... Plugin/s to add to the queue
 -- @return self
 function Lualog:use(...)
     local plugins = pack2(...)
@@ -167,16 +191,16 @@ function Lualog:use(...)
     return self
 end
 
--- Return a text colorized with style. It's necesary use print function to see at console/terminal
--- @params style <string> - Style to apply to the text
--- @params text <string> - Text
--- @return string
+--- Return a text colorized with style. It's necesary use print function to see at console/terminal
+-- @string style Style to apply to the text
+-- @string text Text
+-- @treturn string
 function Lualog:paint(style,text)
     return colorizer.ustr(style,text)
 end
 
 -- Inspect a table with table inspector
--- @params t <table> - Table to inspect with inspector
+-- @tparam table t Table to inspect with inspector
 function Lualog:inspect(t)
     print(self.__inspect:parse(t))
 end

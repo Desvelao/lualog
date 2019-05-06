@@ -5,12 +5,16 @@ Create a simple logger for Lua with some configurations as show date, stylized t
 
 **Not works with Luvit** (due to Luvit custom `require` function)
 
+# Docs
+
+See the documentation [here](https://desvelao.github.com/lualog).
+
 # Install
 
 ## Using Luarocks
 ```bash
-luarocks install lualog
-luarocks install lualog --local # local instalation
+luarocks install lualog #global installation
+luarocks install lualog --local # local installation
 luarocks install lualog --tree lua_modules # current directory installation to lua_modules folder
 ```
 ## Manual

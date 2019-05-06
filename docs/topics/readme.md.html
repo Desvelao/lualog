@@ -1,0 +1,306 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>Lualog - Simple logger for Lua</title>
+    <link rel="stylesheet" href="../ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>Lualog</h1>
+
+<ul>
+  <li><a href="../index.html">Index</a></li>
+</ul>
+
+<h2>Contents</h2>
+<ul>
+<li><a href="#Using_Luarocks">Using Luarocks </a></li>
+<li><a href="#Manual">Manual </a></li>
+<li><a href="#Default_logging_methods">Default logging methods </a></li>
+<li><a href="#Advanced_methods">Advanced methods </a></li>
+</ul>
+
+
+<h2>Topics</h2>
+<ul class="">
+  <li><strong>readme</strong></li>
+</ul>
+<h2>Modules</h2>
+<ul class="nowrap">
+  <li><a href="../modules/init.html">init</a></li>
+  <li><a href="../modules/util.html">util</a></li>
+</ul>
+<h2>Classes</h2>
+<ul class="nowrap">
+  <li><a href="../classes/Colorizer.html">Colorizer</a></li>
+  <li><a href="../classes/Inspect.html">Inspect</a></li>
+</ul>
+<h2>Examples</h2>
+<ul class="nowrap">
+  <li><a href="../examples/example.lua.html">example.lua</a></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+
+<h1>Lualog</h1>
+<p>This is a simple logger for Lua.</p>
+
+<p>Create a simple logger for Lua with some configurations as show date, stylized tags and logger name.</p>
+
+<p><strong>Not works with Luvit</strong> (due to Luvit custom <a href="https://www.lua.org/manual/5.3/manual.html#pdf-require">require</a> function)</p>
+
+<h1>Docs</h1>
+
+<p>See the documentation <a href="https://desvelao.github.com/lualog">here</a>.</p>
+
+<h1>Install</h1>
+
+<p><a name="Using_Luarocks"></a></p>
+<h2>Using Luarocks</h2>
+
+<pre>
+luarocks install lualog #global installation
+luarocks install lualog <span class="comment">--local # local installation
+</span>luarocks install lualog <span class="comment">--tree lua_modules # current directory installation to lua_modules folder</span>
+</pre>
+
+<p><a name="Manual"></a></p>
+<h2>Manual</h2>
+
+<p>Download this repository and copy the folder <strong>lualog</strong> and place it at <strong>root folder of your proyect</strong>.</p>
+
+<h1>Usage</h1>
+
+<pre>
+<span class="comment">-- Example
+</span><span class="keyword">local</span> Lualog = <span class="global">require</span><span class="string">'lualog'</span>
+
+<span class="keyword">local</span> logger = Lualog.new{ <span class="comment">-- you can use Lualog() instead Lualog.new
+</span>    tag = <span class="string">'My logger'</span>, <span class="comment">-- a logger tag. default: ''
+</span>    styles = {dev = <span class="string">'yellow'</span>, crash = <span class="string">'bgred'</span>}, <span class="comment">-- define custom methods and their style. default: {}
+</span>    ignore_levels = {<span class="string">'dev'</span>}, <span class="comment">-- ignore levels (array). default: {}
+</span>    datestring = <span class="string">'%H:%M:%S'</span>, <span class="comment">-- date string for os.date(). default: false =&gt; Not show
+</span>    table_inspect = { <span class="comment">-- table-inspect plugin config
+</span>        prettyfy = <span class="keyword">true</span>, <span class="comment">-- pretty print tables. default: false
+</span>        allow_tostring = <span class="keyword">true</span>, <span class="comment">-- allow use table __tostring metamethod. default: true
+</span>        level_depth = <span class="number">0</span> <span class="comment">-- max nested level to inspect. default: 0. 0 means no level limit
+</span>    },
+    plugins = {<span class="string">'table-inspect'</span>} <span class="comment">-- add plugins to log items. table-inspect is a optional predefined plugin.
+</span>                               <span class="comment">-- You can add function plugins here too. See as define a plugin at Plugin section. default: {} =&gt; no plugins added.
+</span>}
+<span class="comment">-- Default logging methods
+</span>logger.info(<span class="string">'Hi. This\' a info message'</span>)
+logger.warn(<span class="string">'This\' a warning message'</span>)
+logger.<span class="global">error</span>(<span class="string">'A fatal error just happened!'</span>)
+
+<span class="comment">-- Custom methods defined at initiation instance
+</span>logger.dev(<span class="string">'Ignored level. See ignore_levels table field'</span>) <span class="comment">-- This log is ignored due to ignore_levels = {'dev'}
+</span>logger.crash(<span class="string">'A crash!'</span>,<span class="string">'Oh no!'</span>) <span class="comment">-- Support multiple args
+</span>logger.<span class="global">error</span>(<span class="string">'My error'</span>).info(<span class="string">'A log chainning method!'</span>) <span class="comment">-- chain logging methods but they print at new lines</span>
+</pre>
+
+
+<p>Result:</p>
+
+<p><img src="./img/styles.jpg" alt="Styles"/></p>
+
+<h1>Styles: customize the tag of your custom logging methods</h1>
+
+<p>If you want to create your custom logging methods, you can add a custom style:</p>
+
+<ul>
+    <li>Color text: <code>black, red, green, yellow, blue, magenta, cyan, white</code></li>
+    <li>Background color: <code>bgblack, bgred, bggreen, bgyellow, bgblue, bgmagenta, bgcyan, bgwhite</code></li>
+    <li>Others styles: <code>bold, underlined, reversed</code></li>
+</ul>
+
+<p>Add custom logging methods in options table when you init your instance with:</p>
+
+
+<pre>
+<span class="keyword">local</span> Lualog = <span class="global">require</span><span class="string">'lualog'</span> <span class="comment">-- equal to require('lualog')
+</span><span class="keyword">local</span> logger = Lualog.new({
+    styles = {
+        dev=<span class="string">'yellow'</span>, <span class="comment">-- tag = style
+</span>        my_log= <span class="string">'red.bgblue'</span> <span class="comment">-- you can combine styles, red color and blue background for this method.
+</span>    }
+})
+
+<span class="comment">-- and using them
+</span>logger.dev(<span class="string">'Dev log'</span>)
+logger.my_log(<span class="string">'Other custom logging method'</span>)
+</pre>
+
+<p>Result:</p>
+
+<p><img src="./img/combined-styles.jpg" alt="Combining styles"/></p>
+
+<h1>Methods of instance</h1>
+
+<p>When you create a Lualog instance, this has these methods (by default):</p>
+
+<p><a name="Default_logging_methods"></a></p>
+<h2>Default logging methods</h2>
+
+<ul>
+    <li><code>.info(...)</code> - log method with style <code>blue</code> and tag <code>info</code></li>
+    <li><code>.warn(...)</code> - log method with style <code>yellow</code> and tag <code>warn</code></li>
+    <li><code>.error(...)</code> - log method with style <code>red</code> and tag <a href="https://www.lua.org/manual/5.3/manual.html#pdf-error">error</a></li>
+</ul>
+
+
+<p><a name="Advanced_methods"></a></p>
+<h2>Advanced methods</h2>
+
+<ul>
+    <li><code>:print(...)</code>: function as <a href="https://www.lua.org/manual/5.3/manual.html#pdf-print">print</a> global function but <strong>apply your plugins</strong>. Or call your Lualog instance, logger in examples, as a function <code>logger(...)</code>.</li>
+</ul>
+
+<p>*Tip: call your Lualog instance as function instead <code>:print()</code>*</p>
+
+<pre>
+logger:<span class="global">print</span>(a_number, a_boolean, a_string, a_table)
+<span class="comment">-- or better, you can only call your logger as function! It's the same ;)
+</span>logger(a_number, a_boolean, a_string, a_table) <span class="comment">-- you got a custom print function with custom logging plugins!</span>
+</pre>
+
+<p>- <code>:use(...)</code>: add plugins to queue. See Plugin section.</p>
+
+<ul>
+    <li><p><code>:paint(style, text)</code>: return a colorized string. Use a print method to see it at console/terminal.</p>
+
+<pre>
+<span class="keyword">local</span> my_blue_string = logger:paint(<span class="string">'blue'</span>,<span class="string">'This string will be blue if is printed'</span>)
+<span class="global">print</span>(my_blue_string)
+</pre>
+</li>
+    <li><p><code>:inspect(table)</code>: inspect a table with <strong>table_inspect</strong> configuration defined at initiation the instance or default if not.</p>
+
+<pre>
+<span class="keyword">local</span> my_table = {
+    str = <span class="string">'string value'</span>,
+    n = <span class="number">1</span>,
+    bool = <span class="keyword">true</span>,
+    <span class="global">table</span> = {
+        nested_table = {
+            my_nested_key = <span class="keyword">function</span>() <span class="keyword">return</span> <span class="number">0</span> <span class="keyword">end</span>
+            }
+        }
+    }
+
+logger:inspect(my_table) <span class="comment">-- inspect a table with yor table_inspect config defined or use default values. No plugin is applied.</span>
+</pre>
+
+<p>Log:</p></li>
+</ul>
+
+<p><img src="./img/inspect-table.jpg" alt="Inspect table"/></p>
+
+<h1>Plugin</h1>
+
+<p>You can customize as an element is logged through to plugins. They are applied to logging methods and <code>:print</code> function.</p>
+
+
+<pre>
+<span class="comment">-- ... lualog instance defined
+</span><span class="keyword">function</span> my_plugin_for_print_tables(element)
+    <span class="keyword">if</span>(<span class="global">type</span>(element) == <span class="string">'table'</span>) <span class="keyword">then</span>
+        <span class="comment">-- if element is not a table, this plugin is ignored
+</span>        <span class="comment">-- and pass to next plugin in queue because didn't return a not-nil value
+</span>        <span class="keyword">local</span> result = <span class="string">''</span>
+        <span class="keyword">for</span> key, value <span class="keyword">in</span> <span class="global">pairs</span>(element) <span class="keyword">do</span>
+            result = result .. key .. <span class="string">' = '</span> .. <span class="global">tostring</span>(value) .. <span class="string">'\n'</span>
+        <span class="keyword">end</span>
+        <span class="keyword">return</span> result <span class="comment">-- return a not-nil value to print your element as you defined an this function/plugin
+</span>    <span class="keyword">end</span>
+<span class="keyword">end</span>
+
+logger:use(my_plugin_for_print_tables)
+
+logger:<span class="global">print</span>({
+    key1 = <span class="string">'value1'</span>,
+    key2 = <span class="string">'value2'</span>
+})
+
+<span class="comment">-- Will print due to my_plugin_for_print_tables
+</span><span class="comment">-- key1 = value1
+</span><span class="comment">-- key2 = value2
+</span>
+<span class="comment">-- or define a plugin with an anonymous function
+</span>logger:use(<span class="keyword">function</span>(element)
+    <span class="comment">-- your plugin code
+</span><span class="keyword">end</span>)
+
+<span class="comment">-- :use(...) accept multiple plugins definitions too
+</span>logger:use(my_plugin,other_plugin,...)
+</pre>
+
+<p>Log:</p>
+
+<p><img src="./img/custom-plugin.jpg" alt="Custom Plugin"/></p>
+
+<p>You can add so many plugins as you want. Last plugins added are checked first in the queue.</p>
+
+<p><em>Note: you can use plugins to define how to print your custom objects what are instance of a custom class.</em></p>
+
+<p><strong>Order what your plugin is added is important. Last plugins added are checked first. If a plugin return a not-nil value, then that return value is logged. Of this way you can customize your logs.</strong></p>
+
+
+<h1>Issues requiring the module</h1>
+
+<p>Be sure that module is accessible to path of <strong>LUA_PATH</strong> enviorement variable.</p>
+
+<p>*Note: Your <strong>LUA_PATH</strong> should contain <code>./?.lua;./?/init.lua;</code>* if you place lualog folder in your project root folder.</p>
+
+<p><em>Note</em>: You can check your <strong>LUA_PATH</strong> adding to at beginning of your root script:</p>
+
+
+<pre>
+<span class="comment">-- Print your your LUA_PATH that Lua uses to require modules.
+</span><span class="global">print</span>(<span class="global">package</span>.path)
+</pre>
+
+
+<p>You can extends your <strong>LUA_PATH</strong> at beginning to your file when you init it or add the path where lualog is to your <strong>LUA_PATH</strong> enviorement variable.</p>
+
+
+<pre>
+<span class="comment">-- Extends your LUA_PATH when you init your script/program
+</span><span class="global">package</span>.path = <span class="global">package</span>.path .. <span class="string">'./?.lua;./?/init.lua;'</span> .. <span class="string">'path/to/your/modules/?.lua'</span>
+</pre>
+
+
+<h1>License</h1>
+<p>MIT</p>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.6</a></i>
+<i style="float:right;">Last updated 2019-05-06 01:56:35 </i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>

@@ -1,0 +1,116 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>Lualog - Simple logger for Lua</title>
+    <link rel="stylesheet" href="../ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>Lualog</h1>
+
+<ul>
+  <li><a href="../index.html">Index</a></li>
+</ul>
+
+
+
+<h2>Examples</h2>
+<ul class="nowrap">
+  <li><strong>example.lua</strong></li>
+</ul>
+<h2>Modules</h2>
+<ul class="nowrap">
+  <li><a href="../modules/init.html">init</a></li>
+  <li><a href="../modules/util.html">util</a></li>
+</ul>
+<h2>Classes</h2>
+<ul class="nowrap">
+  <li><a href="../classes/Colorizer.html">Colorizer</a></li>
+  <li><a href="../classes/Inspect.html">Inspect</a></li>
+</ul>
+<h2>Topics</h2>
+<ul class="">
+  <li><a href="../topics/readme.md.html">readme</a></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+    <h2>example.lua</h2>
+<pre>
+<span class="comment">-- Example
+</span><span class="keyword">local</span> Lualog = <span class="global">require</span><span class="string">'lualog'</span>
+
+<span class="comment">-- Create a instance
+</span><span class="keyword">local</span> logger = Lualog.new{ <span class="comment">-- you can use Lualog() instead Lualog.lew
+</span>    tag = <span class="string">'My Logger'</span>, <span class="comment">-- a logger tag. default: ''
+</span>    styles = {dev = <span class="string">'yellow'</span>, crash = <span class="string">'bgred'</span>, data= <span class="string">'red'</span>}, <span class="comment">-- define custom methods and their style. default: {}
+</span>    ignore_levels = {<span class="string">'dev'</span>}, <span class="comment">-- ignore levels (array). default: {}
+</span>    datestring = <span class="string">'%H:%M:%S'</span>, <span class="comment">-- date string for os.date(). default: false =&gt; Not show
+</span>     table_inspect = {
+        prettyfy = <span class="keyword">true</span>, <span class="comment">-- pretty print tables
+</span>        allow_tostring = <span class="keyword">true</span>, <span class="comment">-- allow table __tostring methamethod to apply instead plugin
+</span>        level_depth = <span class="number">0</span> <span class="comment">-- max table level to inspect
+</span>    },
+    plugins = {<span class="string">'table-inspect'</span>} <span class="comment">-- Add plugins to transform the elements you log. default = {}
+</span>                                <span class="comment">-- 'table-inspect' is a predefined plugin to inspect tables
+</span>}
+
+<span class="comment">-- Default logging methods
+</span>logger.info(<span class="string">'Hi. This\' a info message'</span>)
+logger.warn(<span class="string">'This\' a warning message'</span>)
+logger.<span class="global">error</span>(<span class="string">'A fatal error just happened!'</span>)
+
+<span class="comment">-- Custom defined logging methods
+</span>logger.dev(<span class="string">'Ignored level. See ignore_levels table field'</span>) <span class="comment">-- this log is ignored due to ignore_levels = {'dev'}
+</span>logger.crash(<span class="string">'A crash!'</span>,<span class="string">'Oh no!'</span>) <span class="comment">-- support multiple args
+</span>logger.data(<span class="string">'My data'</span>).info(<span class="string">'A log chainning method!'</span>) <span class="comment">-- chain logging methods but they print at new lines
+</span>
+<span class="comment">-- Logging without tags
+</span>logger(<span class="string">'my_string'</span>, <span class="keyword">true</span>, <span class="number">2</span>, {id = <span class="string">'my-id'</span>}) <span class="comment">--
+</span>logger:<span class="global">print</span>(<span class="string">'my_string'</span>, <span class="keyword">true</span>, <span class="number">2</span>, {id = <span class="string">'my-id'</span>}) <span class="comment">-- same logger()
+</span>
+<span class="comment">-- Add custom plugins
+</span><span class="keyword">function</span> my_plugin(element)
+    <span class="keyword">if</span>(<span class="global">type</span>(element) == <span class="string">'table'</span> <span class="keyword">and</span> element.value &gt; <span class="number">4</span>)<span class="keyword">then</span>
+        <span class="keyword">return</span> <span class="string">'&lt;Element value='</span> .. element.value .. <span class="string">'&gt;'</span> <span class="comment">-- return a non-nil value to transform your element to logging.
+</span>        <span class="comment">-- If return nil or no return, next plugin in the plugins queue is executed.
+</span>    <span class="keyword">end</span>
+<span class="keyword">end</span>
+
+logger:use(my_plugin) <span class="comment">-- my_plugin is added to plugins queue and will be first to try to apply
+</span>
+logger({value = <span class="number">10</span>, other_key = <span class="string">'key-value'</span>})
+
+<span class="comment">-- Log to console/terminal
+</span><span class="comment">-- '&lt;Element value=10&gt;'</span></pre>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.6</a></i>
+<i style="float:right;">Last updated 2019-05-06 01:56:35 </i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>

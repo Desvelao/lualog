@@ -1,4 +1,9 @@
+--[[
+#Colorizer class file
+]]
 local colors = require'lualog.colors'
+--- Add colors to strings to print trough console/terminal
+-- @classmod Colorizer
 local Colorizer = {}
 Colorizer.__index = Colorizer
 Colorizer.__call = function(cls,...)
@@ -9,6 +14,9 @@ local ustring = function(value)
     return '\u{001b}['..value..'m'
 end
 
+--- Create a new Colorizer instance
+-- @param options Colorizer options
+-- @treturn Colorizer
 function Colorizer.new(options)
     -- options = options or {}
     local c = {}

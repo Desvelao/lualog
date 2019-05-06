@@ -1,0 +1,299 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>Lualog - Simple logger for Lua</title>
+    <link rel="stylesheet" href="../ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>Lualog</h1>
+
+<ul>
+  <li><a href="../index.html">Index</a></li>
+</ul>
+
+<h2>Contents</h2>
+<ul>
+<li><a href="#Functions">Functions</a></li>
+</ul>
+
+
+<h2>Modules</h2>
+<ul class="nowrap">
+  <li><strong>init</strong></li>
+  <li><a href="../modules/util.html">util</a></li>
+</ul>
+<h2>Classes</h2>
+<ul class="nowrap">
+  <li><a href="../classes/Colorizer.html">Colorizer</a></li>
+  <li><a href="../classes/Inspect.html">Inspect</a></li>
+</ul>
+<h2>Topics</h2>
+<ul class="">
+  <li><a href="../topics/readme.md.html">readme</a></li>
+</ul>
+<h2>Examples</h2>
+<ul class="nowrap">
+  <li><a href="../examples/example.lua.html">example.lua</a></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+<h1>Module <code>init</code></h1>
+<p>Create a Lualog instance</p>
+<p>
+
+</p>
+
+
+<h2><a href="#Functions">Functions</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#__call">__call (t, ...)</a></td>
+	<td class="summary">Print elements with plugins applied</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#info">info (...)</a></td>
+	<td class="summary">Log info</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#warn">warn (...)</a></td>
+	<td class="summary">Log warn</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#error">error (...)</a></td>
+	<td class="summary">Log error</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Lualog:print">Lualog:print (...)</a></td>
+	<td class="summary">Function as <a href="../modules/init.html#Lualog:print">print</a> global function but apply your plugins for each element</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Lualog:use">Lualog:use (...)</a></td>
+	<td class="summary">Add plugin/s to your lualog instance</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Lualog:paint">Lualog:paint (style, text)</a></td>
+	<td class="summary">Return a text colorized with style.</td>
+	</tr>
+</table>
+
+<br/>
+<br/>
+
+
+    <h2 class="section-header "><a name="Functions"></a>Functions</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "__call"></a>
+    <strong>__call (t, ...)</strong>
+    </dt>
+    <dd>
+    Print elements with plugins applied
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">t</span>
+            <span class="types"><span class="type">Lualog</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">...</span>
+         Elements to print
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "info"></a>
+    <strong>info (...)</strong>
+    </dt>
+    <dd>
+    Log info
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">...</span>
+         Elements to print
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        self
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "warn"></a>
+    <strong>warn (...)</strong>
+    </dt>
+    <dd>
+    Log warn
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">...</span>
+         Elements to print
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        self
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "error"></a>
+    <strong>error (...)</strong>
+    </dt>
+    <dd>
+    Log error
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">...</span>
+         Elements to print
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        self
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Lualog:print"></a>
+    <strong>Lualog:print (...)</strong>
+    </dt>
+    <dd>
+    Function as <a href="../modules/init.html#Lualog:print">print</a> global function but apply your plugins for each element
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">...</span>
+         Element to print
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Lualog:use"></a>
+    <strong>Lualog:use (...)</strong>
+    </dt>
+    <dd>
+    Add plugin/s to your lualog instance
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">...</span>
+            <span class="types"><span class="type">function</span></span>
+         Plugin/s to add to the queue
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        self
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Lualog:paint"></a>
+    <strong>Lualog:paint (style, text)</strong>
+    </dt>
+    <dd>
+    Return a text colorized with style.  It's necesary use print function to see at console/terminal
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">style</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.3/manual.html#6.4">string</a></span>
+         Style to apply to the text
+        </li>
+        <li><span class="parameter">text</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.3/manual.html#6.4">string</a></span>
+         Text
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.3/manual.html#6.4">string</a></span>
+
+
+
+    </ol>
+
+
+
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.6</a></i>
+<i style="float:right;">Last updated 2019-05-06 01:56:35 </i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>

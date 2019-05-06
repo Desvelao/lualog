@@ -1,8 +1,12 @@
+--[[
+#Inspect class file
+]]
+
 local Colorizer = require'lualog.colorizer'
 local util = require'lualog.util'
 
 --- An object that inspects a Lua table recursively and generates human-readable output.
--- @type Inspector
+-- @classmod Inspect
 
 local Inspect = {}
 
@@ -11,7 +15,7 @@ Inspect.config = {
     prettyfy = false, -- Prettify Output
     allow_tostring = true, -- Tries calling the __tostring metamethod
     level_depth = 0, -- Max depth to recurse into tables
-    type_values = {
+    type_values = { -- Variables types color configuration
         number = {style = 'green'},
         string = {style = 'yellow', render = function(value) return '"'..value..'"' end},
         ["function"] = {style = 'blue'},
@@ -21,7 +25,7 @@ Inspect.config = {
     }
 }
 
---- Creates a new inspector Object.
+--- Creates a new Inspector object.
 -- @tparam table options A table containing options for the new inspector
 -- @treturn Inspector A newly created inspector
 function Inspect.new(options)

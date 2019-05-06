@@ -1,3 +1,6 @@
+--[[
+#Utils
+]]
 local util = {
     table = {},
     deco = {},
@@ -47,8 +50,8 @@ function util.table.for_each(t,fn)
 end
 
 --- Returns whether an object is an instance of a certain class.
--- @param instance The object to check
--- @param class The class the object might be an instance of
+-- @tparam table instance The object to check
+-- @tparam string class The class name the object might be an instance of
 -- @treturn boolean Whether the object is an instance of the class
 function util.is_instance_of(instance,class)
     if not type(instance)=='table' then error("Argument #1 not an object (expected table, got "..type(instance)..")", 2) end
@@ -62,7 +65,7 @@ do
     --- Given a condition, returns a function that returns
     -- either its first argument (if condition is true)
     -- or its second argument (if condition is false)
-    -- @tparam condition Any Lua value
+    -- @param condition Any Lua value
     -- @treturn function One of the two functions described above
     function util.deco.if_condition(condition)
         if condition then
@@ -74,7 +77,9 @@ do
 end
 
 --- Checks whether a value is nil and returns a default value if so.
--- @returns default if value is nil, value otherwise
+-- @param value Value to check if is nil 
+-- @param default Value to return if value param is nil
+-- @return default if value is nil, value otherwise
 function util.value.not_nil(value,default)
     return (value == nil and default) or value
 end
