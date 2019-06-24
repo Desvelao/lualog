@@ -7,7 +7,7 @@ Create a simple logger for Lua with some configurations as show date, stylized t
 
 # Docs
 
-See the documentation [here](https://desvelao.github.com/lualog).
+See the documentation [here](https://desvelao.github.io/lualog/).
 
 # Install
 
