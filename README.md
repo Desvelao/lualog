@@ -3,7 +3,7 @@ This is a simple logger for Lua.
 
 Create a simple logger for Lua with some configurations as show date, stylized tags and logger name.
 
-**Not works with Luvit** (due to Luvit custom `require` function)
+**Not works with Luvit** (due to Luvit custom `require` function).
 
 # Docs
 
